@@ -31,7 +31,7 @@ export TRACKS_DIR=/home/ubuntu/my/static/media/folder
 ### How to run
 
 <pre>
-sudo npm start
+npm start
 </pre>
 
 #### Default music: http://www.bensound.com
