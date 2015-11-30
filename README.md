@@ -15,11 +15,14 @@ npm install
 
 ### How to configure
 
-The project is configured to serv and create audio files in folder CDPSfy/media/.
-You can modify that folder using the env variable 'TRACKS_DIR'
-For instance:
+The project is configured to serv and create audio files in folder 'CDPSfy/media/'.
 
+You can modify that folder using the env variable 'TRACKS_DIR'
+
+For instance:
+<pre>
 export TRACKS_DIR=/home/ubuntu/my/static/media/folder
+</pre>
 
 ### How to run
 
