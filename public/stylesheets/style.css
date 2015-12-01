@@ -71,17 +71,16 @@ h1 a {
 }
 
 .track img {
-	width: 100px;
-	height: 100px;
-	background-image: url('/images/quaver3.png');
-	background-repeat: no-repeat;
-	background-position-x: center; 
-	background-position-y: center;
+	width: 60px;
+	height: 60px;
+	border: 1px groove black;
+	padding: 20px;
 }
 
 .track_playing img {
-	width: 300px;
-	height: 300px;
+	width: 100px;
+	height: 100px;
+	padding: 100px;
 }
 
 .track audio {

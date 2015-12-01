@@ -4,7 +4,6 @@
 
 - node.js
 - npm
-- Note: it is recommended to use Chrome or Safari to use the web app.
 
 ### How to install
 
