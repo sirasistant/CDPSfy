@@ -16,10 +16,7 @@ router.get('/tracks/new', trackController.new);
 
 router.get('/tracks/:trackId', trackController.show);
 
-router.post('/tracks', multer({ dest: tracks_dir, rename: function (fieldname, filename, req, res) {
-	console.log(fieldname, filename);
-	return filename;
-}}), trackController.create);
+router.post('/tracks', multer({inMemory: true}), trackController.create);
 
 router.delete('/tracks/:trackId', trackController.destroy);
 

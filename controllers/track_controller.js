@@ -1,19 +1,9 @@
 var fs = require('fs');
-
-var tracks_dir = process.env.TRACKS_DIR || 'media/';
+var track_model = require('./../models/track');
 
 exports.list = function (req, res) {
-
-	fs.readdir(tracks_dir, function (err, files) {
-		console.log(files, err);
-		var tracks = {};
-		var index = 0;
-		files.forEach (function (f) {
-			tracks[index] = f;
-			index++;
-		});
-		res.render('tracks/index', {tracks: tracks});
-	});
+	var tracks = track_model.tracks;
+	res.render('tracks/index', {tracks: tracks});
 };
 
 exports.new = function (req, res) {
@@ -21,15 +11,27 @@ exports.new = function (req, res) {
 };
 
 exports.show = function (req, res) {
-	res.render('tracks/show', {track: req.params.trackId});
+	var track = track_model.tracks[req.params.trackId];
+	track.id = req.params.trackId;
+	res.render('tracks/show', {track: track});
 };
 
 exports.create = function (req, res) {
+	console.log(req.files);
+	var id = req.files.track.name.split('.')[0];
+	var name = req.files.track.originalname.split('.')[0];
+	var url = '/TODO';
+	track_model.tracks[id] = {
+		name: name,
+		url: url
+	};
+
 	res.redirect('/tracks');
 };
 
 exports.destroy = function (req, res) {
-	console.log('borrando', req.params.trackId);
-	fs.unlinkSync(tracks_dir + req.params.trackId);
+
+	delete track_model.tracks[req.params.trackId];
+
 	res.redirect('/tracks');
 };
