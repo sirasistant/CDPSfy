@@ -32,6 +32,8 @@ exports.create = function (req, res) {
 	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
 	// Esta url debe ser la correspondiente al nuevo fichero en tracks.cdpsfy.es
 	fs.stat(track.path, function(err, stats) {
+		console.log('Stats from file: ',stats);
+		console.log('Target url: ',FILES_SERVER);
     	restler.post(FILES_SERVER, { 
 	        multipart: true,
 	        data: {
