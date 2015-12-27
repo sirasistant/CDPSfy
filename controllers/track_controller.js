@@ -1,7 +1,7 @@
 var fs = require('fs');
 var restler = require('restler');
 var track_model = require('./../models/track');
-var FILES_SERVER="tracks.cdpsfy.es/files"; //fileservers url here
+var FILES_SERVER="http://tracks.cdpsfy.es/files"; //fileservers url here
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 exports.list = function (req, res) {
@@ -40,8 +40,8 @@ exports.create = function (req, res) {
 	            "file": restler.file(track.path, null, stats.size, null, track.mimetype)
        	 	}
     	}).on("complete", function(data) {
-        	var jsonRes=JSON.parse(data);
-			var url = FILES_SERVER + "/" + jsonRes.filename;
+        		console.log('Response from files server:',data);
+			var url = FILES_SERVER + "/" + data.filename;
 
 			// Escribe los metadatos de la nueva canción en el registro.
 			track_model.tracks[id] = {
