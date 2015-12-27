@@ -25,7 +25,7 @@ exports.show = function (req, res) {
 exports.create = function (req, res) {
 	var track = req.file;
 	console.log('Nuevo fichero de audio. Datos: ', track);
-	var id = track.name.split('.')[0];
+	var id = track.filename;
 	var name = track.originalname.split('.')[0];
 
 	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
