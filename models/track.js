@@ -1,5 +1,6 @@
-/* 
+var mongoose = require('mongoose');
 
+/* 
 Modelo de datos de canciones (track)
 
 track_id: {
@@ -9,5 +10,11 @@ track_id: {
 
 */
 
-exports.tracks = {
-};
+var trackSchema = mongoose.Schema({
+    name: String,
+    url: String
+});
+
+var Track = mongoose.model('Track', trackSchema);
+
+module.exports = Track;
