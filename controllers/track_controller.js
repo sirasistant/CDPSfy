@@ -24,7 +24,7 @@ exports.show = function (req, res) {
 	console.log("Finding track: ",trackId);
 	Track.find( { _id : trackId } , function (err, tracks) {
 		if (err) return console.error(err);
-		var track = tracks[0];
+		var track = tracks[0]; //Select the first element, since it is unique id, it should only exist one
 		console.log("Found tracks ",track);
 		res.render('tracks/show', {track: track});
 	});
@@ -32,14 +32,14 @@ exports.show = function (req, res) {
 
 // Escribe una nueva canción en el registro de canciones.
 exports.create = function (req, res) {
-	var track = req.files.track&&req.files.track[0];
-	var cover = req.files.cover&&req.files.cover[0];
+	var track = req.files.track&&req.files.track[0]; //Get the track from the request. See multer in npm website
+	var cover = req.files.cover&&req.files.cover[0];  //Get the cover from the request. See multer in npm website
 	if(track){
 		console.log('Nuevo fichero de audio. Datos: ', track);
 		var id = track.filename;
-		var name = track.originalname.split('.')[0];
+		var name = track.originalname.split('.')[0]; //Get the file name without extension
 
-		var then=function(song){
+		var then=function(song){ //Function that saves the song in mongodb.
 			song.save(function(err,song){
 				if(err){
 					return console.error(err);
@@ -47,53 +47,55 @@ exports.create = function (req, res) {
 				res.redirect('/tracks');
 			});
 		}
-
-	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
-	// Esta url debe ser la correspondiente al nuevo fichero en tracks.cdpsfy.es
-	fs.stat(track.path, function(err, stats) {
-		restler.post(FILES_SERVER, { 
-			multipart: true,
-			data: {
-				"file": restler.file(track.path, null, stats.size, null, track.mimetype)
-			}
-		}).on("complete", function(data) {
-			console.log('Response from files server:',data);
-			var url = FILES_SERVER + "/" + data.filename;
-			if(cover){
-				fs.stat(cover.path, function(err, stats) {
-					restler.post(FILES_SERVER, { 
-						multipart: true,
-						data: {
-							"file": restler.file(cover.path, null, stats.size, null, cover.mimetype)
-						}
-					}).on("complete", function(data) {
-						var coverUrl = FILES_SERVER + "/" + data.filename;
-						var song = new Track({ name: name,url:url,coverUrl:coverUrl });
-						then(song);
+		//Get the statistics of track file using the fs library, needed for the restler library
+		fs.stat(track.path, function(err, stats) {
+			restler.post(FILES_SERVER, {  //Send the file via post multipart to the fileServer
+				multipart: true,
+				data: {
+					"file": restler.file(track.path, null, stats.size, null, track.mimetype) //here we use the size obtained in stats
+				}
+			}).on("complete", function(data) {
+				console.log('Response from files server:',data);
+				var url = FILES_SERVER + "/" + data.filename; //We get the full url using the filename that the fileServer has assigned to the file
+				if(cover){ //If cover was send, do the same thing with the cover
+					fs.stat(cover.path, function(err, stats) {
+						restler.post(FILES_SERVER, { 
+							multipart: true,
+							data: {
+								"file": restler.file(cover.path, null, stats.size, null, cover.mimetype)
+							}
+						}).on("complete", function(data) {
+							var coverUrl = FILES_SERVER + "/" + data.filename;
+							var song = new Track({ name: name,url:url,coverUrl:coverUrl }); //Here we create the song with an extra attribute, coverUrl
+							then(song);
+						});
 					});
-				});
-			}else{
-				var song = new Track({ name: name,url:url });
-				then(song);
-			}
+				}else{ //else, save the song and end.
+					var song = new Track({ name: name,url:url });
+					then(song);
+				}
+			});
 		});
-	});
-}else{
-	res.status(400).send("No content");
-}
+	}else{
+		res.status(400).send("No content"); //If no track sent, send error.
+	}
 };
 
 // Borra una canción (trackId) del registro de canciones 
 exports.destroy = function (req, res) {
 	var trackId = req.params.trackId;
-	Track.find( { _id : trackId } , function (err, tracks) {
+
+	Track.find( { _id : trackId } , function (err, tracks) { //Find the track in the BDD
 		if (err) return console.error(err);
 		var track = tracks[0];
+
 		console.log("Destroying:",track);
-		track.remove(function(err){
+
+		track.remove(function(err){ //remove it from the BDD
+			if (err) return console.error(err);
 			console.log("Deleting track: ",track.url);
-			restler.del(track.url,{}).on("complete", function(data) {
-				if(track.coverUrl){
+			restler.del(track.url,{}).on("complete", function(data) { //then delete the track file from the fileServer
+				if(track.coverUrl){ // if the track has cover, delete it too
 						console.log("Deleting cover: ",track.coverUrl);
 						restler.del(track.coverUrl,{}).on("complete", function(data) {
 							res.redirect('/tracks');
