@@ -12,7 +12,8 @@ track_id: {
 
 var trackSchema = mongoose.Schema({
     name: String,
-    url: String
+    url: String,
+    coverUrl:String
 });
 
 var Track = mongoose.model('Track', trackSchema);

@@ -17,7 +17,7 @@ router.get('/tracks/new', trackController.new);
 
 router.get('/tracks/:trackId', trackController.show);
 
-router.post('/tracks', upload.single('track'), trackController.create);
+router.post('/tracks', upload.fields([{ name: 'track', maxCount: 1 }, { name: 'cover', maxCount: 1 }]), trackController.create);
 
 router.delete('/tracks/:trackId', trackController.destroy);
 
