@@ -8,7 +8,7 @@ exports.list = function (req, res) {
 	Track.find(function (err, tracks) {
 		if (err) return console.error(err);
 		console.log(tracks);
-		res.render('tracks/index', {tracks: tracks});
+		res.send(tracks);
 	});	
 };
 
@@ -44,7 +44,7 @@ exports.create = function (req, res) {
 				if(err){
 					return console.error(err);
 				}
-				res.redirect('/tracks');
+				res.sendStatus(200);
 			});
 		}
 		//Get the statistics of track file using the fs library, needed for the restler library
@@ -98,10 +98,10 @@ exports.destroy = function (req, res) {
 				if(track.coverUrl){ // if the track has cover, delete it too
 						console.log("Deleting cover: ",track.coverUrl);
 						restler.del(track.coverUrl,{}).on("complete", function(data) {
-							res.redirect('/tracks');
+							res.sendStatus(200);
 						});
 				}else{
-					res.redirect('/tracks');
+					res.sendStatus(200);
 				}
 			});
 		});

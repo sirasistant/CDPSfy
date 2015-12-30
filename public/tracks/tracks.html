@@ -1,0 +1,10 @@
+<div ng-repeat="track in tracks">
+
+<div class="track col-lg-2 col-md-4 col-xs-6" >
+	<img ng-click="playSong(track)" ng-class="{track_noimage:!track.coverUrl }" ng-src="{{track.coverUrl? track.coverUrl : '/images/quaver3.png'}}"/>
+	<p>
+	<a href="javascript:void(0)" ng-click="playSong(track)">{{track.name}}</a>
+	</p>
+</div>
+
+</div>

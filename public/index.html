@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>CDPSfy</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+  <link href="stylesheets/navbar.css" rel="stylesheet">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+
+      <div class="container" ng-app="CDPSfy" ng-controller="navCtrl">
+
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="javascript:void(0)">CDPSfy</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li ng-class="{active:isTabSelected(0) }" ><a href="javascript:void(0)" ng-click="selectTab(0)">Home</a></li>
+                <li ng-class="{active:isTabSelected(1) }"><a href="javascript:void(0)" ng-click="selectTab(1)">My tracks</a></li>
+                <li ng-class="{active:isTabSelected(2) }"><a href="javascript:void(0)" ng-click="selectTab(2)">Upload new track</a></li>
+
+              </ul>
+
+            </div><!--/.nav-collapse -->
+          </div><!--/.container-fluid -->
+        </nav>
+        <div ng-view></div>
+        <div id="footer">
+          <sound-manager></sound-manager>
+          <div style="text-align:center" class="col-xs-3">
+            <a style="font-size:36px;" prev-track><span class="glyphicon glyphicon-step-backward"></span></a>
+            <a style="font-size:36px;" ng-show="isPlaying" pause-music><span class="glyphicon glyphicon-pause"></span></a>
+            <a style="font-size:36px;" ng-show="!isPlaying"  play-music><span class="glyphicon glyphicon-play"></span></a>
+            <a style="font-size:36px;" next-track><span class="glyphicon glyphicon-step-forward"></span></a>
+          </div>
+          <div class="col-xs-9 row">
+            <div class="display:inline">
+             <div class="col-xs-6">
+               Currently Playing: {{ currentPlaying.title }} <span ng-show="currentPlaying"> ({{playlist.indexOf(currentPlaying)+1}} / {{playlist.length}})</span>
+             </div>
+             <div class="col-xs-6" style="text-align:right">
+               {{ currentPostion }} / {{ currentDuration }}
+             </div>
+             <div class="clearfix"></div>
+             <div class="col-xs-12">
+              <div class="seekBase" seek-track>
+                <div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <script src="//ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="javascripts/angular-soundmanager2.min.js"></script>
+    <script src="cdpsfy.js"></script>
+    <script src="home/homeController.js"></script>
+    <script src="tracks/tracksController.js"></script>
+    <script src="newTrack/newTrackController.js"></script>
+  </body>
+  </html>
