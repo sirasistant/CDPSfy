@@ -1,4 +1,4 @@
-var app = angular.module('CDPSfy', ['ngRoute','angularSoundManager']);
+var app = angular.module('CDPSfy', ['ngRoute','angularSoundManager','ngContextMenu','ui.bootstrap']);
 
 app.controller('navCtrl', function($scope,$location) {
     $scope.tab = -1;
@@ -14,6 +14,9 @@ app.controller('navCtrl', function($scope,$location) {
     		case "/newTrack":
     			$scope.tab=2;
     		break;
+    		case "/playlists":
+    			$scope.tab=3;
+    		break;
     	}
     });
 
@@ -27,7 +30,10 @@ app.controller('navCtrl', function($scope,$location) {
         		$location.path("/tracks");
         	break;
         	case 2:
-        		$location.path("/newTrack")
+        		$location.path("/newTrack");
+        	break;
+        	case 3:
+        		$location.path("/playlists");
         	break;
         }
     };
@@ -49,7 +55,10 @@ app.config(function($routeProvider, $locationProvider) {
   }).when('/newTrack', {
     templateUrl: 'newTrack/newTrack.html',
     controller: 'newTrackCtrl'
-  });;
+  }).when('/playlists', {
+    templateUrl: 'playlists/playlists.html',
+    controller: 'playlistsCtrl'
+  });
 
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(false);

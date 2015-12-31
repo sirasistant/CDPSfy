@@ -1,15 +1,29 @@
 app.controller('tracksCtrl', function($scope,$http,$log,angularPlayer) {
-	$scope.tracks=[];
-	
-	$http.get("/api/tracks").success(function(data){
-		for (var i = data.length - 1; i >= 0; i--) {
-			var track=data[i];
-			track.id=track._id;
-			track.title=track.name;
-			track.artist="a";
-		}
-		$scope.tracks=data;
+	$scope.tracks = [];
+	$scope.playlists = [];
+	$scope.trackSearch={name:""}
+
+	$http.get("/api/playlists").success(function(data){
+		$scope.playlists=data;
 	});
+	
+	$scope.reloadTracks=function(){
+		$http.get("/api/tracks").success(function(data){
+			for (var i = data.length - 1; i >= 0; i--) {
+				var track=data[i];
+				track.id=track._id;
+				track.title=track.name;
+				track.artist="";
+			}
+			$scope.tracks=data;
+		});
+	}
+
+	$scope.addToPlaylist=function(playlist,song){
+		$http.post("/api/playlists/"+playlist._id,{trackId:song._id}).success(function(data){
+
+		});
+	}
 
 	$scope.playSong=function(song){
 		if($scope.isPlaying && song.id==$scope.currentPlaying.id){
@@ -32,4 +46,12 @@ app.controller('tracksCtrl', function($scope,$http,$log,angularPlayer) {
 				}, 0);}
 			}
 		}
+
+		$scope.deleteSong=function(song){
+			$http.delete("/api/tracks/"+song._id).success(function(data){
+				$scope.reloadTracks();
+			})
+		}
+
+		$scope.reloadTracks();
 	});

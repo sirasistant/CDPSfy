@@ -1,10 +1,40 @@
-<div ng-repeat="track in tracks">
+<div class="fakejumbo">
+<div class="form-horizontal">
+	<div class="form-group">
+			<label class="control-label col-md-5" >Search by name:</label>
+			<div class="col-md-3">
+				<input class="form-control" ng-model="trackSearch.name" required placeholder="Name">
+			</div>
+		</div>
+</div>
+<div ng-repeat="track in tracks | filter : trackSearch">
 
-<div class="track col-lg-2 col-md-4 col-xs-6" >
-	<img ng-click="playSong(track)" ng-class="{track_noimage:!track.coverUrl }" ng-src="{{track.coverUrl? track.coverUrl : '/images/quaver3.png'}}"/>
-	<p>
-	<a href="javascript:void(0)" ng-click="playSong(track)">{{track.name}}</a>
-	</p>
+	<div class="track col-lg-2 col-md-4 col-xs-6">
+		<img ng-click="playSong(track)" ng-class="{track_noimage:!track.coverUrl }" ng-src="{{track.coverUrl? track.coverUrl : '/images/quaver3.png'}}"/>
+
+		<span uib-dropdown on-toggle="toggled(open)"><p>
+			<a href id="simple-dropdown" uib-dropdown-toggle>
+				{{track.name}}	
+			</a>
+		</p>
+		<ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown" >
+			<li>
+				<a href ng-click="playSong(track)">Play</a>
+			</li>
+			<li  class="menu-item dropdown dropdown-submenu" ng-show="playlists.length>0">
+				<a href>Add to playlist</a>
+				<ul class="dropdown-menu">
+					<li ng-repeat="playlist in playlists" ><a href ng-click="addToPlaylist(playlist,track)">{{playlist.name}}</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href ng-click="deleteSong(track)">Delete</a>
+			</li>
+		</ul>
+	</span>
+
 </div>
 
+</div>
+<div class="clearfix"></div>
 </div>

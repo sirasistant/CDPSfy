@@ -1,7 +1,8 @@
 var fs = require('fs');
 var restler = require('restler');
 var Track = require('./../models/track');
-var FILES_SERVER="http://localhost:3000/files"; //fileservers url here
+var Playlist = require('./../models/playlist');
+var FILES_SERVER="http://tracks.cdpsfy.es/files"; //fileservers url here
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 exports.list = function (req, res) {
@@ -76,7 +77,7 @@ exports.create = function (req, res) {
 				}
 			});
 		});
-	}else{
+}else{
 		res.status(400).send("No content"); //If no track sent, send error.
 	}
 };
@@ -91,19 +92,27 @@ exports.destroy = function (req, res) {
 
 		console.log("Destroying:",track);
 
-		track.remove(function(err){ //remove it from the BDD
+		Playlist.find({songs:trackId},function (err, playlists) {
 			if (err) return console.error(err);
-			console.log("Deleting track: ",track.url);
-			restler.del(track.url,{}).on("complete", function(data) { //then delete the track file from the fileServer
+			for (var i = playlists.length - 1; i >= 0; i--) {
+				var playlist=playlists[i];
+				playlist.songs.splice(playlist.songs.indexOf(trackId),1);
+			};
+			track.remove(function(err){ //remove it from the BDD
+				if (err) return console.error(err);
+				console.log("Deleting track: ",track.url);
+				restler.del(track.url,{}).on("complete", function(data) { //then delete the track file from the fileServer
 				if(track.coverUrl){ // if the track has cover, delete it too
-						console.log("Deleting cover: ",track.coverUrl);
-						restler.del(track.coverUrl,{}).on("complete", function(data) {
-							res.sendStatus(200);
-						});
+					console.log("Deleting cover: ",track.coverUrl);
+					restler.del(track.coverUrl,{}).on("complete", function(data) {
+						res.sendStatus(200);
+					});
 				}else{
 					res.sendStatus(200);
 				}
 			});
 		});
+		});	
+		
 	})
 };

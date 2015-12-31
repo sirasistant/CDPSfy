@@ -37,14 +37,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="javascript:void(0)">CDPSfy</a>
+              <a class="navbar-brand" href="javascript:void(0)" ng-click="selectTab(0)">CDPSfy</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li ng-class="{active:isTabSelected(0) }" ><a href="javascript:void(0)" ng-click="selectTab(0)">Home</a></li>
                 <li ng-class="{active:isTabSelected(1) }"><a href="javascript:void(0)" ng-click="selectTab(1)">My tracks</a></li>
+                <li ng-class="{active:isTabSelected(3) }"><a href="javascript:void(0)" ng-click="selectTab(3)">Playlists</a></li>
                 <li ng-class="{active:isTabSelected(2) }"><a href="javascript:void(0)" ng-click="selectTab(2)">Upload new track</a></li>
-
               </ul>
 
             </div><!--/.nav-collapse -->
@@ -83,9 +83,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
     <script src="javascripts/angular-soundmanager2.min.js"></script>
+    <script src="javascripts/ng-contextmenu.min.js"></script>
+    <script src="javascripts/ui-bootstrap-tpls-0.14.3.min.js"></script>
     <script src="cdpsfy.js"></script>
     <script src="home/homeController.js"></script>
     <script src="tracks/tracksController.js"></script>
     <script src="newTrack/newTrackController.js"></script>
+        <script src="playlists/playlistsController.js"></script>
   </body>
   </html>
