@@ -2,7 +2,7 @@ var fs = require('fs');
 var restler = require('restler');
 var Track = require('./../models/track');
 var Playlist = require('./../models/playlist');
-var FILES_SERVER="http://localhost:3000/files"; //fileservers url here
+var FILES_SERVER="http://tracks.cdpsfy.es/files"; //fileservers url here
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 exports.list = function (req, res) {
