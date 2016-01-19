@@ -1,12 +1,12 @@
-<form class="jumbotron form-horizontal" name="newTrackForm">  
+<form class="uploadSongContainer textPageContainer form-horizontal" name="newTrackForm">  
 
-  <h3>Upload new track</h3>
+  <h2>Upload new track</h2>
   <label class="upload_field">Audio file*</label>
   <input id="trackInput" class="upload_field" type="file" name="track"/>
   <label class="upload_field">Cover</label>
   <input id="coverInput" class="upload_field" type="file" name="cover"/>
   <br/>
-  <button class="btn btn-primary" ng-click="sendTrack()" type="button">Upload</button>
+  <button style="background-color:#ffa500"  class="btn btn-warning" ng-click="sendTrack()" type="button">Upload</button>
 
   <span class="hint upload_field">Supported files: MP3, Wav, and Ogg</span>
 

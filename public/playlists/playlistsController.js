@@ -9,7 +9,7 @@ app.controller('playlistsCtrl', function($scope,$http,$uibModal,$location,angula
 
 	$scope.createPlaylist=function(){
 		var modalInstance = $uibModal.open({
-			animation: $scope.animationsEnabled,
+			animation: true,
 			templateUrl: 'addPlaylistModal.html',
 			controller: 'addPlaylistController',
 			resolve: {

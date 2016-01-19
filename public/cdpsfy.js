@@ -1,4 +1,4 @@
-var app = angular.module('CDPSfy', ['ngRoute','angularSoundManager','ngContextMenu','ui.bootstrap']);
+var app = angular.module('CDPSfy', ['ngRoute','ngAnimate','angularSoundManager','ngContextMenu','ui.bootstrap']);
 
 app.controller('navCtrl', function($scope,$location) {
     $scope.tab = -1;

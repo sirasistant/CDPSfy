@@ -1,19 +1,20 @@
-<div class="fakejumbo">
-<div class="form-horizontal">
+<div class="fyContainer">
+<div style="margin-bottom:30px" class="form-horizontal">
 	<div class="form-group">
 			<label class="control-label col-md-5" >Search by name:</label>
 			<div class="col-md-3">
-				<input class="form-control" ng-model="trackSearch.name" required placeholder="Name">
+				<input style=" background-color: rgb(34,34,34);color:white" class="form-control" ng-model="trackSearch.name" required placeholder="Name">
 			</div>
 		</div>
 </div>
 <div ng-repeat="track in tracks | filter : trackSearch">
 
-	<div class="track col-lg-2 col-md-4 col-xs-6">
-		<img ng-click="playSong(track)" ng-class="{track_noimage:!track.coverUrl }" ng-src="{{track.coverUrl? track.coverUrl : '/images/quaver3.png'}}"/>
-
-		<span uib-dropdown on-toggle="toggled(open)"><p>
-			<a href id="simple-dropdown" uib-dropdown-toggle>
+	<div class=" col-lg-2 col-md-4 col-sm-6 col-xs-12">
+	<div class="track">
+		<img ng-click="playSong(track)" class="trackImage" ng-class="{track_noimage:!track.coverUrl }" ng-src="{{track.coverUrl? track.coverUrl : '/images/quaver3.png'}}"/>
+<div class="trackName" >
+		<span  uib-dropdown on-toggle="toggled(open)"><p>
+			<a style="color:white;" href="javascript:void(0)" id="simple-dropdown" uib-dropdown-toggle>
 				{{track.name}}	
 			</a>
 		</p>
@@ -32,7 +33,8 @@
 			</li>
 		</ul>
 	</span>
-
+	</div>
+</div>
 </div>
 
 </div>

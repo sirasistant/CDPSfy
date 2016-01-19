@@ -1,17 +1,25 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin-bottom:50px;
+  margin-top:50px;
+  color:white ;
+  background: rgb(18,19,20);
 }
 
 a {
-  color: #00B7FF;
+  color: #ffa500;
 }
 
 h1 a {
 	text-decoration: none;
 	color: black;
 }
+
+.trackName{
+    text-align: left;
+    padding:10px 5px;
+}
+
 
 #header {
 	padding-bottom: 20px;
@@ -48,10 +56,12 @@ h1 a {
 }
 
 .track {
-	padding-top: 50px;
-	text-decoration: none;
-	color: black;
-	text-align: center;
+	width: 150px;
+    height: 220px;
+    background-color: rgb(29,29,29);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
 
 .track_playing {
@@ -64,24 +74,22 @@ h1 a {
 	margin-top: 50px;
 }
 
-.track p {
-	text-align: center;
-}
 
 .track img {
-	width: 100px;
-	height: 100px;
-	border: 1px groove black;
+	width: 150px;
+	height: 150px;
 	cursor: pointer;
-	padding: 2px;
-	border-radius: 5px;
-	margin: 5px;
 	background-color: #f8f8f8;
-	border-color: #e7e7e7;
 }
 
 .track_noimage {
-	padding: 20px !important
+	padding: 35px !important
+}
+
+.track_noimage img {
+    width: 80px !important;
+    height: 80px !important;
+    cursor: pointer;
 }
 
 .track_playing img {
@@ -101,16 +109,14 @@ h1 a {
 
 #footer
 {
-    background-color:rgb(240,240,240);
+    background-color:rgb(34,34,34);
     position:fixed;
     bottom:0px;
-    left:50px;
-    right:50px;
+    left:0px;
+    right:0px;
     height:50px;
     margin-bottom:0px;
     padding:7px;
-    border:1px solid;
-    border-radius: 5px;
     border-color: #e7e7e7;
 }
 
@@ -121,9 +127,9 @@ h1 a {
   cursor: pointer;
 }
 .seekLoad {
-	height: 20px;
+	height: 18px;
   width: 0;
-  background-color: #00B7FF;
+  background-color: #ffa500;
     cursor: pointer;
 }
 
@@ -180,5 +186,36 @@ hr{
 	background-color: #eee;
 	padding:10px;
 	border-radius: 5px;
+}
 
+.fyContainer{
+    padding: 20px 100px 40px 100px;
+}
+
+.listsContainer{
+    padding-bottom: 40px;
+}
+
+.listContainer{
+     background-color: rgb(29,29,29);
+     padding: 13px 100px;
+     margin-top: 25px;
+}
+.textPageContainer{
+    padding: 50px 100px 40px 100px;
+    margin-top: 40px;
+}
+.uploadSongContainer{
+    background-color: rgb(29,29,29);
+}
+
+.infoContainer{
+    background-color: rgb(29,29,29);
+    text-align: center;
+}
+.infoContainer > h1{
+        font-size: 63px;
+}
+.modal-content{
+  background: rgb(34,34,34) !important;
 }
