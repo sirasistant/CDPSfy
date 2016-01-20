@@ -8,7 +8,7 @@
 ### How to install
 
 <pre>
-git clone https://github.com/aalonsog/CDPSfy.git
+git clone https://github.com/sirasistant/CDPSfy.git
 cd CDPSfy
 npm install
 </pre>
